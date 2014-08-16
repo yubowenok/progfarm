@@ -31,7 +31,7 @@
 			<div class="container">
 
 
-				<h1>Welcom To ProgFarm!</h1><br/>
+				<h1>Welcome To ProgFarm!</h1><br/>
 				<p>Online platform for programming practice management - A system to keep control of your solved problems.</p>
 
 			</div>
