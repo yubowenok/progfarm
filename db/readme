@@ -1,0 +1,6 @@
+Run "./setup" to prepare the database.
+
+Usage: ./setup [mysql_path] [db_username] [db_password]
+
+A database named "progfarm" will be created.
+Note that if there exists a previous database with this name, it would be dropped and its previous contents would be lost!
