@@ -8,6 +8,7 @@ CREATE TABLE levels
   id INTEGER NOT NULL AUTO_INCREMENT,
   name VARCHAR(20) NOT NULL,
   iconpath VARCHAR(100) NOT NULL,
+  points INTEGER,
   
   PRIMARY KEY (id)
 );
@@ -42,9 +43,11 @@ CREATE TABLE problems
   PRIMARY KEY (id),
   
   FOREIGN KEY (platform_id)
-    REFERENCES platforms(id),
+    REFERENCES platforms(id)
+    ON DELETE CASCADE,
   FOREIGN KEY (level_id)
     REFERENCES levels(id)
+    ON DELETE CASCADE
 );
 
 CREATE TABLE users
@@ -53,7 +56,7 @@ CREATE TABLE users
   privilege INTEGER NOT NULL,
   username VARCHAR(40) NOT NULL UNIQUE,
   password VARCHAR(40) NOT NULL,
-  salt VARCHAR(10) NOT NULL,
+  salt INTEGER NOT NULL,
   name VARCHAR(40),
   email VARCHAR(100),
   
@@ -63,7 +66,7 @@ CREATE TABLE users
 CREATE TABLE submissions
 (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  time DATETIME NOT NULL,
+  time INTEGER UNSIGNED NOT NULL,
   url VARCHAR(100) NOT NULL,
   srcpath VARCHAR(100) NOT NULL,
   problem_id INTEGER,
@@ -73,9 +76,12 @@ CREATE TABLE submissions
   PRIMARY KEY (id),
   
   FOREIGN KEY (problem_id)
-    REFERENCES problems(id),
+    REFERENCES problems(id)
+    ON DELETE CASCADE,
   FOREIGN KEY (user_id)
-    REFERENCES users(id),
+    REFERENCES users(id)
+    ON DELETE CASCADE,
   FOREIGN KEY (language_id)
     REFERENCES languages(id)
+    ON DELETE CASCADE
 );

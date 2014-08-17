@@ -1,23 +1,53 @@
 <?php
 
 function getAllPlatforms() {
-  global $con;
-  if (!$con) {
-    return null;
-  }
   $qstr = 'SELECT * FROM platforms';
-  $result = mysqli_query($con, $qstr);
-  return $result;
+  return executeDB($qstr);
 }
 
 function getPlatformById($platform_id) {
-  global $con;
-  if (!$con) {
-    return null;
-  }
-  $qstr = 'SELECT * FROM platforms WHERE id=' . $platform_id;
-  $result = mysqli_query($con, $qstr);
-  return $result;
+  $qstr = "SELECT * FROM platforms WHERE id = " . $platform_id;
+  return executeDB($qstr);
 }
+
+function addPlatform($name, $url) {
+  if (!connectedDB()) return false;
+  global $con;
+  $name = mysqli_real_escape_string($con, $name);
+  $url = mysqli_real_escape_string($con, $url);
+  $qstr = "INSERT INTO platforms (name, url) VALUES
+    ('$name', '$url')";
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+}
+
+function updatePlatform($platform_id, $name, $url) {
+  if (!connectedDB()) return false;
+  global $con;
+  $name = mysqli_real_escape_string($con, $name);
+  $url = mysqli_real_escape_string($con, $url);
+  $qstr = "UPDATE platforms SET
+    name = '$name',
+    url = '$url'
+    WHERE id = " . $platform_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+}
+
+function deletePlatform($platform_id) {
+  if (!connectedDB()) return false;
+  $qstr = 'DELETE FROM platforms WHERE id = ' . $platform_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+} 
 
 ?>

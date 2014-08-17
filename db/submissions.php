@@ -1,23 +1,41 @@
 <?php
 
 function getAllSubmissions() {
-  global $con;
-  if (!$con) {
-    return null;
-  }
   $qstr = 'SELECT * FROM submissions';
-  $result = mysqli_query($con, $qstr);
-  return $result;
+  return executeDB($qstr);
 }
 
 function getSubmissionsByUser($user_id) {
+  $qstr = 'SELECT * FROM problems WHERE user_id = ' . $user_id;
+  return executeDB($qstr);
+}
+
+function addSubmission($user_id, $problem_id, $language_id, $url, $time) {
+  if (!connectedDB()) return false;
   global $con;
-  if (!$con) {
-    return null;
+  $url = mysqli_real_escape_string($con, $url);
+  $time = mysqli_real_escape_string($con, $time);
+  $qstr = "INSERT INTO submissions (user_id, problem_id, language_id, url, time) VALUES
+    ('$user_id', '$problem_id', '$language_id', $url', '$time')";
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
   }
-  $qstr = 'SELECT * FROM problems WHERE user_id=' . $user_id;
-  $result = mysqli_query($con, $qstr);
-  return $result;
+  return true;
+}
+
+function updateSubmission($submission_id, $url) {
+  if (!connectedDB()) return false;
+  global $con;
+  $url = mysqli_real_escape_string($con, $url);
+  $qstr = "UPDATE submissions SET
+    url = '$url'
+    WHERE id = " . $submission_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
 }
 
 ?>

@@ -1,14 +1,14 @@
 USE progfarm;
 
 -- levels
-INSERT INTO levels (name)
+INSERT INTO levels (name, points)
   VALUES
-    ('Pawn'),
-    ('Knight'),
-    ('Bishop'),
-    ('Rook'),
-    ('Queen'),
-    ('King');
+    ('Pawn', 2),
+    ('Knight', 5),
+    ('Bishop', 10),
+    ('Rook', 20),
+    ('Queen', 50),
+    ('King', 100);
 
 -- platforms
 INSERT INTO platforms (name, url)
@@ -46,5 +46,5 @@ INSERT INTO users (name, username, password, privilege)
 -- submissions
 INSERT INTO submissions (problem_id, user_id, language_id, time, url)
   VALUES
-    (3, 1, 2, '2014-08-02 01:42:37', 'http://codeforces.com/contest/453/submission/7322588'),
-    (1, 1, 2, '2014-08-02 12:54:29', 'http://www.codechef.com/viewsolution/4439433');
+    (3, 1, 2, 969681600000, 'http://codeforces.com/contest/453/submission/7322588'),
+    (1, 1, 2, 969681600000, 'http://www.codechef.com/viewsolution/4439433');
