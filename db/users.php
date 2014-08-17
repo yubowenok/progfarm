@@ -81,18 +81,18 @@ function deleteUserByUsername($user_username) {
 }
 
 function authenticateUser($username, $password) {
-  if (!connectedDB()) return false;
+  if (!connectedDB()) return -1;
   global $con;
   $username = mysqli_real_escape_string($con, $username);
   $password = mysqli_real_escape_string($con, $password);
   $qstr = 'SELECT * FROM users WHERE username = ' . $username;
   $result = executeDB($qstr);
   if (is_null($result)) {
-    return false;
+    return -1;
   }
   if (mysql_num_rows($result) !== 1) {
     // username does not exist
-    return false;
+    return -1;
   }
   $row = mysqli_fetch_array($result);
   $acpassword = $row['password'];
@@ -100,9 +100,9 @@ function authenticateUser($username, $password) {
   $password = crypt($password, $salt);
   if ($password !== $acpassword) {
     // incorrect password
-    return false;
+    return -1;
   }
-  return true;  // success!
+  return $row['id'];  // success!
 }
 
 ?>

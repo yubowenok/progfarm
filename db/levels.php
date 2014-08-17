@@ -41,7 +41,6 @@ function updateLevel($level_id, $name, $points) {
 }
 
 function deleteLevel($level_id) {
-  if (!connectedDB()) return false;
   $qstr = 'DELETE FROM levels WHERE id = ' . $level_id;
   $result = executeDB($qstr);
   if (is_null($result)) {

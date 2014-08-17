@@ -38,4 +38,12 @@ function updateSubmission($submission_id, $url) {
   return true;
 }
 
+function deleteSubmission($submission_id) {
+  $qstr = 'DELETE FROM submissions WHERE id = ' . $submission_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+}
 ?>

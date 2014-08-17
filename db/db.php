@@ -41,6 +41,11 @@ function connectedDB() {
   return true;
 }
 
+function getErrorDB() {
+  global $dberror;
+  return getErrorDB();
+}
+
 include 'platforms.php';
 include 'levels.php';
 include 'problems.php';

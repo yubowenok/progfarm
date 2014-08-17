@@ -41,7 +41,6 @@ function updatePlatform($platform_id, $name, $url) {
 }
 
 function deletePlatform($platform_id) {
-  if (!connectedDB()) return false;
   $qstr = 'DELETE FROM platforms WHERE id = ' . $platform_id;
   $result = executeDB($qstr);
   if (is_null($result)) {

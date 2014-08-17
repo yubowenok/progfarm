@@ -45,5 +45,14 @@ function updateProblem($problem_id, $code, $title, $url, $platform_id, $level_id
   return true;
 }
 
+function deleteProblem($problem_id) {
+  $qstr = 'DELETE FROM problems WHERE id = ' . $problem_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+} 
+
 ?>
                                                                
