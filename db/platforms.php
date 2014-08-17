@@ -47,6 +47,6 @@ function deletePlatform($platform_id) {
     return false;
   }
   return true;
-} 
+}
 
 ?>

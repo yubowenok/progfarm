@@ -44,6 +44,6 @@ function deleteLanguage($language_id) {
     return false;
   }
   return true;
-} 
+}
 
 ?>

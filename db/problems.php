@@ -16,7 +16,7 @@ function addProblem($code, $title, $url, $platform_id, $level_id) {
   $code = mysqli_real_escape_string($con, $code);
   $title = mysqli_real_escape_string($con, $title);
   $url = mysqli_real_escape_string($con, $url);
-  $qstr = "INSERT INTO problems (code, title, url, platform_id, level_id) VALUES 
+  $qstr = "INSERT INTO problems (code, title, url, platform_id, level_id) VALUES
     ('$code', '$title', '$url', '$platform_id', '$level_id')";
   $result = executeDB($qstr);
   if (is_null($result)) {
@@ -31,13 +31,13 @@ function updateProblem($problem_id, $code, $title, $url, $platform_id, $level_id
   $code = mysqli_real_escape_string($con, $code);
   $title = mysqli_real_escape_string($con, $title);
   $url = mysqli_real_escape_string($con, $url);
-  $qstr = "UPDATE problems SET 
+  $qstr = "UPDATE problems SET
     code = '$code',
     title = '$title',
     url = '$url',
     platform_id = '$platform_id',
     level_id = '$level_id'
-    WHERE id = " . $problem_id; 
+    WHERE id = " . $problem_id;
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -52,7 +52,6 @@ function deleteProblem($problem_id) {
     return false;
   }
   return true;
-} 
+}
 
 ?>
-                                                               

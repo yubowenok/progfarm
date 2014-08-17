@@ -29,7 +29,7 @@ function executeDB($qstr) {
 
 function closeDB() {
  global $con;
- mysqli_close($con); 
+ mysqli_close($con);
 }
 
 function connectedDB() {

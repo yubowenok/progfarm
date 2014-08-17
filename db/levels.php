@@ -47,6 +47,6 @@ function deleteLevel($level_id) {
     return false;
   }
   return true;
-} 
+}
 
 ?>
