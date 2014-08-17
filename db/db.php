@@ -44,6 +44,7 @@ function connectedDB() {
 include 'platforms.php';
 include 'levels.php';
 include 'problems.php';
+include 'languages.php';
 include 'users.php';
 include 'submissions.php'
 
