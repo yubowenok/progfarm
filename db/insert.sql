@@ -38,10 +38,10 @@ INSERT INTO problems (code, title, url, platform_id, level_id)
     ('CF 454D', 'Little Pony and Harmony Chest', 'http://codeforces.com/contest/454/problem/D', 1, 4);
 
 -- users
-INSERT INTO users (name, username, password, privilege)
+INSERT INTO users (name, username, password, regtime, email, privilege)
   VALUES
-    ('Bowen Yu', 'yubowenok', 'test', 1),
-    ('Juno Zeng', 'zyt144', 'test', 2);
+    ('Bowen Yu', 'yubowenok', 'test', 969681600000, 'byu@progfarm.edu', 1),
+    ('Juno Zeng', 'zyt144', 'test', 969681600000, 'yzeng@progfarm.edu', 2);
 
 -- submissions
 INSERT INTO submissions (problem_id, user_id, language_id, time, url)

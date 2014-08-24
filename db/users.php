@@ -24,12 +24,13 @@ function addUser($username, $password, $name, $email, $privilege) {
   $name = mysqli_real_escape_string($con, $name);
   $email = mysqli_real_escape_string($con, $email);
   $privilege = mysqli_real_escape_string($con, $privilege);
+  $regtime = time();
   $salt = rand() . rand();
 
   $password = crypt($password, $salt);
 
-  $qstr = "INSERT INTO users (username, password, salt, name, email) VALUES
-    ('$username', '$password', '$salt', '$name', '$email')";
+  $qstr = "INSERT INTO users (username, password, salt, name, email, regtime) VALUES
+    ('$username', '$password', '$salt', '$name', '$email', '$regtime')";
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -80,6 +81,30 @@ function deleteUserByUsername($user_username) {
   return true;
 }
 
+function existUsername($user_username) {
+  if (!connectedDB()) return false;
+  global $con;
+  $user_username = mysqli_real_escape_string($con, $user_username);
+  $qstr = "SELECT FROM users WHERE username = '$user_username'";
+  $result = executeDB($qstr);
+  if (mysqli_num_rows($result) === 0) {
+    return false;
+  }
+  return true;
+}
+
+function existUserEmail($user_email) {
+  if (!connectedDB()) return false;
+  global $con;
+  $user_email = mysqli_real_escape_string($con, $user_email);
+  $qstr = "SELECT FROM users WHERE email = '$user_email'";
+  $result = executeDB($qstr);
+  if (mysqli_num_rows($result) === 0) {
+    return false;
+  }
+  return true;
+}
+
 function authenticateUser($username, $password) {
   if (!connectedDB()) return -1;
   global $con;
@@ -90,7 +115,7 @@ function authenticateUser($username, $password) {
   if (is_null($result)) {
     return -1;
   }
-  if (mysql_num_rows($result) !== 1) {
+  if (mysqli_num_rows($result) !== 1) {
     // username does not exist
     return -1;
   }

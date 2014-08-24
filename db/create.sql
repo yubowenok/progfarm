@@ -58,7 +58,8 @@ CREATE TABLE users
   password VARCHAR(40) NOT NULL,
   salt INTEGER NOT NULL,
   name VARCHAR(40),
-  email VARCHAR(100),
+  email VARCHAR(100) NOT NULL UNIQUE,
+  regtime INTEGER UNSIGNED NOT NULL,
 
   PRIMARY KEY (id)
 );
