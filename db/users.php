@@ -111,7 +111,6 @@ function authenticateUser($username, $password) {
   $username = mysqli_real_escape_string($con, $username);
   $password = mysqli_real_escape_string($con, $password);
   $qstr = "SELECT * FROM users WHERE username = '$username'";
-  echo $qstr;
   $result = executeDB($qstr);
   if (is_null($result)) {
     return -1;
