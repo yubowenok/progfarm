@@ -85,7 +85,7 @@ function existUsername($user_username) {
   if (!connectedDB()) return false;
   global $con;
   $user_username = mysqli_real_escape_string($con, $user_username);
-  $qstr = "SELECT FROM users WHERE username = '$user_username'";
+  $qstr = "SELECT * FROM users WHERE username = '$user_username'";
   $result = executeDB($qstr);
   if (mysqli_num_rows($result) === 0) {
     return false;
@@ -97,7 +97,7 @@ function existUserEmail($user_email) {
   if (!connectedDB()) return false;
   global $con;
   $user_email = mysqli_real_escape_string($con, $user_email);
-  $qstr = "SELECT FROM users WHERE email = '$user_email'";
+  $qstr = "SELECT * FROM users WHERE email = '$user_email'";
   $result = executeDB($qstr);
   if (mysqli_num_rows($result) === 0) {
     return false;
