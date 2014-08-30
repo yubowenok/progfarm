@@ -44,7 +44,7 @@ INSERT INTO users (name, username, password, regtime, email, privilege)
     ('Juno Zeng', 'zyt144', 'test', 969681600000, 'yzeng@progfarm.edu', 2);
 
 -- submissions
-INSERT INTO submissions (problem_id, user_id, language_id, time, url, description)
+INSERT INTO submissions_problems (problem_id, user_id, language_id, time, url, description)
   VALUES
     (3, 1, 2, 969681600000, 'http://codeforces.com/contest/453/submission/7322588', 'good code'),
     (1, 1, 2, 969681600000, 'http://www.codechef.com/viewsolution/4439433', 'poor code');

@@ -1,31 +1,31 @@
 <?php
 
-function getAllSubmissions() {
-  $qstr = 'SELECT * FROM submissions';
+function getAllProblemSubmissions() {
+  $qstr = 'SELECT * FROM submissions_problems';
   return executeDB($qstr);
 }
 
-function getSubmissionById($submission_id) {
-  $qstr = 'SELECT * FROM submissions WHERE submission_id = ' . $submission_id;
+function getProblemSubmissionById($submission_id) {
+  $qstr = 'SELECT * FROM submissions_problems WHERE id = ' . $submission_id;
   return executeDB($qstr);
 }
 
 
-function getSubmissionsByUser($user_id) {
-  $qstr = 'SELECT * FROM submissions WHERE user_id = ' . $user_id;
+function getProblemSubmissionsByUser($user_id) {
+  $qstr = 'SELECT * FROM submissions_problems WHERE user_id = ' . $user_id;
   return executeDB($qstr);
 }
 
-function addSubmission($user_id, $problem_id, $language_id, $url, $description) {
+function addProblemSubmission($user_id, $problem_id, $language_id, $url, $description) {
   if (!connectedDB()) return false;
   global $con;
   $url = mysqli_real_escape_string($con, $url);
   $time = time();
   $description = mysqli_real_escape_string($con, $description);
-  $qstr = "INSERT INTO submissions 
+  $qstr = "INSERT INTO submissions_problems 
     (user_id, problem_id, language_id, url, time, description) 
     VALUES
-    ('$user_id', '$problem_id', '$language_id', $url', '$time', '$description')";
+    ('$user_id', '$problem_id', '$language_id', '$url', '$time', '$description')";
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -33,12 +33,12 @@ function addSubmission($user_id, $problem_id, $language_id, $url, $description) 
   return true;
 }
 
-function updateSubmission($submission_id, $problem_id, $language_id, $url, $decription) {
+function updateProblemSubmission($submission_id, $problem_id, $language_id, $url, $decription) {
   if (!connectedDB()) return false;
   global $con;
   $url = mysqli_real_escape_string($con, $url);
   $description = mysqli_real_escape_string($con, $description);
-  $qstr = "UPDATE submissions SET
+  $qstr = "UPDATE submissions_problems SET
     problem_id = '$problem_id',
     language_id = '$language_id',
     url = '$url',
@@ -51,8 +51,8 @@ function updateSubmission($submission_id, $problem_id, $language_id, $url, $decr
   return true;
 }
 
-function deleteSubmission($submission_id) {
-  $qstr = 'DELETE FROM submissions WHERE id = ' . $submission_id;
+function deleteProblemSubmission($submission_id) {
+  $qstr = 'DELETE FROM submissions_problems WHERE id = ' . $submission_id;
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;

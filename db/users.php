@@ -6,13 +6,16 @@ function getAllUsers() {
 }
 
 function getUserPoints($user_id) {
-  $qstr = 'SELECT SUM(points) AS points FROM levels, problems, submissions WHERE 
+  $qstr = 'SELECT SUM(points) AS points FROM levels, problems, submissions_problems WHERE 
     levels.id = problems.level_id AND
-    submissions.problem_id = problems.id AND
-    submissions.user_id = ' . $user_id;
+    submissions_problems.problem_id = problems.id AND
+    submissions_problems.user_id = ' . $user_id;
   $result = executeDB($qstr);
   if (is_null($result)) {
     return -1;
+  }
+  if (mysqli_num_rows($result) === 0) {
+    return 0;
   }
   $row = mysqli_fetch_array($result);
   return $row['points'];
