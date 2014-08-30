@@ -57,4 +57,13 @@ function updateProject($project_id, $code, $name, $url, $description, $points) {
   return true;
 }
 
+function deleteProject($project_id) {
+  $qstr = 'DELETE FROM projects WHERE id = ' . $project_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+}
+
 ?>

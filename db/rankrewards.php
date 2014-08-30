@@ -9,14 +9,6 @@ function getRankrewardById($rankreward_id) {
   $qstr = 'SELECT * FROM rankrewards WHERE id = ' . $rankreward_id;
   return executeDB($qstr);
 }
-
-  id INTEGER NOT NULL AUTO_INCREMENT,
-  platform_id INTEGER NOT NULL,
-  name VARCHAR(50) NOT NULL,
-  description VARCHAR(200),
-  rankl INTEGER,
-  rankr INTEGER,
-  points INTEGER UNSIGNED,
   
 function addRankreward($platform_id, $name, $description, $rankl, $rankr, $points) {
   if (!connectedDB()) return false;
@@ -62,6 +54,15 @@ function updateRankreward($rankreward_id,
     rankr = '$rankr',
     points = '$points'
     WHERE id = " . $rankreward_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return false;
+  }
+  return true;
+}
+
+function deleteRankreward($rankreward_id) {
+  $qstr = 'DELETE FROM rankrewards WHERE id = ' . $rankreward_id;
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
