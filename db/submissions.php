@@ -5,8 +5,14 @@ function getAllSubmissions() {
   return executeDB($qstr);
 }
 
+function getSubmissionById($submission_id) {
+  $qstr = 'SELECT * FROM submissions WHERE submission_id = ' . $submission_id;
+  return executeDB($qstr);
+}
+
+
 function getSubmissionsByUser($user_id) {
-  $qstr = 'SELECT * FROM problems WHERE user_id = ' . $user_id;
+  $qstr = 'SELECT * FROM submissions WHERE user_id = ' . $user_id;
   return executeDB($qstr);
 }
 

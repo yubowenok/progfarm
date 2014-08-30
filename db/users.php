@@ -5,6 +5,19 @@ function getAllUsers() {
   return executeDB($qstr);
 }
 
+function getUserPoints($user_id) {
+  $qstr = 'SELECT SUM(points) AS points FROM levels, problems, submissions WHERE 
+    levels.id = problems.level_id AND
+    submissions.problem_id = problems.id AND
+    submissions.user_id = ' . $user_id;
+  $result = executeDB($qstr);
+  if (is_null($result)) {
+    return -1;
+  }
+  $row = mysqli_fetch_array($result);
+  return $row['points'];
+}
+
 function getUserByUsername($user_username) {
   // do not call with user input
   $qstr = "SELECT * FROM users WHERE username = '$user_username'";

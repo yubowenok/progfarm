@@ -86,3 +86,6 @@ CREATE TABLE submissions
     REFERENCES languages(id)
     ON DELETE CASCADE
 );
+
+ALTER TABLE submissions
+ADD CONSTRAINT uniq_user_problem UNIQUE (user_id, problem_id);
