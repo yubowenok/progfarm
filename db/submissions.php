@@ -16,13 +16,16 @@ function getSubmissionsByUser($user_id) {
   return executeDB($qstr);
 }
 
-function addSubmission($user_id, $problem_id, $language_id, $url, $time) {
+function addSubmission($user_id, $problem_id, $language_id, $url, $description) {
   if (!connectedDB()) return false;
   global $con;
   $url = mysqli_real_escape_string($con, $url);
-  $time = mysqli_real_escape_string($con, $time);
-  $qstr = "INSERT INTO submissions (user_id, problem_id, language_id, url, time) VALUES
-    ('$user_id', '$problem_id', '$language_id', $url', '$time')";
+  $time = time();
+  $description = mysqli_real_escape_string($con, $description);
+  $qstr = "INSERT INTO submissions 
+    (user_id, problem_id, language_id, url, time, description) 
+    VALUES
+    ('$user_id', '$problem_id', '$language_id', $url', '$time', '$description')";
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -30,12 +33,16 @@ function addSubmission($user_id, $problem_id, $language_id, $url, $time) {
   return true;
 }
 
-function updateSubmission($submission_id, $url) {
+function updateSubmission($submission_id, $problem_id, $language_id, $url, $decription) {
   if (!connectedDB()) return false;
   global $con;
   $url = mysqli_real_escape_string($con, $url);
+  $description = mysqli_real_escape_string($con, $description);
   $qstr = "UPDATE submissions SET
-    url = '$url'
+    problem_id = '$problem_id',
+    language_id = '$language_id',
+    url = '$url',
+    description = '$description'
     WHERE id = " . $submission_id;
   $result = executeDB($qstr);
   if (is_null($result)) {

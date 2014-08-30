@@ -9,6 +9,7 @@ CREATE TABLE levels
   name VARCHAR(20) NOT NULL,
   iconpath VARCHAR(100) NOT NULL,
   points INTEGER,
+  description VARCHAR(200),
 
   PRIMARY KEY (id)
 );
@@ -18,6 +19,7 @@ CREATE TABLE platforms
   id INTEGER NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
   url VARCHAR(100) NOT NULL,
+  description VARCHAR(200),
 
   PRIMARY KEY (id)
 );
@@ -26,6 +28,7 @@ CREATE TABLE languages
 (
   id INTEGER NOT NULL AUTO_INCREMENT,
   name VARCHAR(15) NOT NULL,
+  description VARCHAR(200),
 
   PRIMARY KEY (id)
 );
@@ -39,6 +42,7 @@ CREATE TABLE problems
   url VARCHAR(100) NOT NULL,
   platform_id INTEGER,
   level_id INTEGER,
+  description VARCHAR(200),
 
   PRIMARY KEY (id),
 
@@ -73,6 +77,7 @@ CREATE TABLE submissions
   problem_id INTEGER,
   user_id INTEGER,
   language_id INTEGER,
+  description VARCHAR(200),
 
   PRIMARY KEY (id),
 

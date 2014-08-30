@@ -38,7 +38,7 @@ function addUser($username, $password, $name, $email, $privilege) {
   $email = mysqli_real_escape_string($con, $email);
   $privilege = mysqli_real_escape_string($con, $privilege);
   $regtime = time();
-  $salt = rand() . rand();
+  $salt = (rand() % 65536) * (rand() % 65536);
 
   $password = crypt($password, $salt);
 
