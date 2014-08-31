@@ -1,0 +1,27 @@
+
+if [ -z $1 ]; then
+  read -p 'enter mysql path: ' umysql
+  if [ -z "$umysql" ]; then
+    umysql='mysql';
+  fi
+else
+  umysql=$1
+fi
+echo 'Using path "'$umysql'"';
+
+if [ -z $2 ]; then
+  read -p 'enter mysql username: ' uname
+else
+  uname=$2
+fi
+echo 'Using username "'$uname'"';
+
+if [ -z $3 ]; then
+  read -s -p 'enter mysql password: ' upwd
+else
+  upwd=$3
+fi
+echo ''
+
+$umysql --user=$uname --password=$upwd < create.sql
+$umysql --user=$uname --password=$upwd < insert.sql
