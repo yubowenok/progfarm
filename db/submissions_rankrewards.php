@@ -5,7 +5,7 @@ function getAllRankrewardSubmissions() {
   return executeDB($qstr);
 }
 
-function getProjectSubmissionById($submission_id) {
+function getRankrewardSubmissionById($submission_id) {
   $qstr = 'SELECT * FROM submissions_rankrewards WHERE id = ' . $submission_id;
   return executeDB($qstr);
 }
