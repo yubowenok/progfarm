@@ -10,13 +10,14 @@ function getLevelById($level_id) {
   return executeDB($qstr);
 }
 
-function addLevel($name, $points) {
+function addLevel($name, $points, $description) {
   if (!connectedDB()) return false;
   global $con;
   $name = mysqli_real_escape_string($con, $name);
   $points = mysqli_real_escape_string($con, $points);
-  $qstr = "INSERT INTO levels (name, points) VALUES
-    ('$name', '$points')";
+  $description = mysqli_real_escape_string($con, $description);
+  $qstr = "INSERT INTO levels (name, points, description) VALUES
+    ('$name', '$points', '$description')";
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -24,14 +25,16 @@ function addLevel($name, $points) {
   return true;
 }
 
-function updateLevel($level_id, $name, $points) {
+function updateLevel($level_id, $name, $points, $description) {
   if (!connectedDB()) return false;
   global $con;
   $name = mysqli_real_escape_string($con, $name);
   $points = mysqli_real_escape_string($con, $points);
+  $description = mysqli_real_escape_string($con, $description);
   $qstr = "UPDATE levels SET
     name = '$name',
-    points = '$points'
+    points = '$points',
+    description = '$description'
     WHERE id = " . $level_id;
   $result = executeDB($qstr);
   if (is_null($result)) {
