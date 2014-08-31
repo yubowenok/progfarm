@@ -10,13 +10,15 @@ function getPlatformById($platform_id) {
   return executeDB($qstr);
 }
 
-function addPlatform($name, $url) {
+function addPlatform($name, $url, $description) {
   if (!connectedDB()) return false;
   global $con;
   $name = mysqli_real_escape_string($con, $name);
   $url = mysqli_real_escape_string($con, $url);
-  $qstr = "INSERT INTO platforms (name, url) VALUES
-    ('$name', '$url')";
+  $description = mysqli_real_escape_string($con, $description);
+  $qstr = "INSERT INTO platforms (name, url, description) 
+    VALUES
+    ('$name', '$url', '$description')";
   $result = executeDB($qstr);
   if (is_null($result)) {
     return false;
@@ -24,14 +26,16 @@ function addPlatform($name, $url) {
   return true;
 }
 
-function updatePlatform($platform_id, $name, $url) {
+function updatePlatform($platform_id, $name, $url, $description) {
   if (!connectedDB()) return false;
   global $con;
   $name = mysqli_real_escape_string($con, $name);
   $url = mysqli_real_escape_string($con, $url);
+  $description = mysqli_real_escape_string($con, $description);
   $qstr = "UPDATE platforms SET
     name = '$name',
-    url = '$url'
+    url = '$url',
+    description = '$description'
     WHERE id = " . $platform_id;
   $result = executeDB($qstr);
   if (is_null($result)) {

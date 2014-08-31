@@ -51,6 +51,9 @@ include 'levels.php';
 include 'problems.php';
 include 'languages.php';
 include 'users.php';
-include 'submissions.php'
-
+include 'projects.php';
+include 'rankrewards.php';
+include 'submissions_problems.php';
+include 'submissions_projects.php';
+include 'submissions_rankrewards.php';
 ?>
