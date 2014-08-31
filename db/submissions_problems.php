@@ -2,61 +2,54 @@
 
 function getAllProblemSubmissions() {
   $qstr = 'SELECT * FROM submissions_problems';
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function getProblemSubmissionById($submission_id) {
   $qstr = 'SELECT * FROM submissions_problems WHERE id = ' . $submission_id;
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 
 function getProblemSubmissionsByUser($user_id) {
   $qstr = 'SELECT * FROM submissions_problems WHERE user_id = ' . $user_id;
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
-function addProblemSubmission($user_id, $problem_id, $language_id, $url, $description) {
-  if (!connectedDB()) return false;
-  global $con;
-  $url = mysqli_real_escape_string($con, $url);
+function addProblemSubmission($user_id, $problem_id, $language_id, $url='', $description='') {
+  try {
+    escapeStringDB($url);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $time = time();
-  $description = mysqli_real_escape_string($con, $description);
   $qstr = "INSERT INTO submissions_problems 
     (user_id, problem_id, language_id, url, time, description) 
     VALUES
     ('$user_id', '$problem_id', '$language_id', '$url', '$time', '$description')";
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+   $status = executeDB($qstr, $result);
+   return $status;
 }
 
-function updateProblemSubmission($submission_id, $problem_id, $language_id, $url, $decription) {
-  if (!connectedDB()) return false;
-  global $con;
-  $url = mysqli_real_escape_string($con, $url);
-  $description = mysqli_real_escape_string($con, $description);
+function updateProblemSubmission($submission_id, $problem_id, $language_id, $url, $description) {
+  try {
+    escapeStringDB($url);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $qstr = "UPDATE submissions_problems SET
     problem_id = '$problem_id',
     language_id = '$language_id',
     url = '$url',
     description = '$description'
     WHERE id = " . $submission_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 function deleteProblemSubmission($submission_id) {
   $qstr = 'DELETE FROM submissions_problems WHERE id = ' . $submission_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 ?>

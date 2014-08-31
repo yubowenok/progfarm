@@ -2,60 +2,53 @@
 
 function getAllProjectSubmissions() {
   $qstr = 'SELECT * FROM submissions_projects';
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function getProjectSubmissionById($submission_id) {
   $qstr = 'SELECT * FROM submissions_projects WHERE id = ' . $submission_id;
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function getProjectSubmissionsByUser($user_id) {
   $qstr = 'SELECT * FROM submissions_projects WHERE user_id = ' . $user_id;
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function addProjectSubmission($user_id, $project_id, $url, $description) {
-  if (!connectedDB()) return false;
-  global $con;
+  try {
+    escapeStringDB($url);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $time = time();
-  $url = mysqli_real_escape_string($con, $url);
-  $description = mysqli_real_escape_string($con, $description);
   $qstr = "INSERT INTO submissions_projects 
     (user_id, project_id, url, description, time) 
     VALUES
     ('$user_id', '$project_id', '$url', '$description', '$time')";
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 function updateProjectSubmission($submission_id, 
-  $project_id, $url, $decription) {
-  if (!connectedDB()) return false;
-  global $con;
-  $url = mysqli_real_escape_string($con, $url);
-  $description = mysqli_real_escape_string($con, $description);
+  $project_id, $url, $description) {
+  try {
+    escapeStringDB($url);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $qstr = "UPDATE submissions_projects SET
     project_id = '$project_id',
     url = '$url',
     description = '$description'
     WHERE id = " . $submission_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 function deleteProjectSubmission($submission_id) {
   $qstr = 'DELETE FROM submissions_projects WHERE id = ' . $submission_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
+
 ?>

@@ -61,7 +61,7 @@ CREATE TABLE users
   salt INTEGER UNSIGNED NOT NULL,
   name VARCHAR(40),
   email VARCHAR(100) NOT NULL UNIQUE,
-  regtime INTEGER UNSIGNED NOT NULL,
+  regtime BIGINT NOT NULL,
 
   PRIMARY KEY (id)
 );
@@ -98,7 +98,7 @@ CREATE TABLE projects
 CREATE TABLE submissions_rankrewards
 (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  time INTEGER UNSIGNED NOT NULL,
+  time BIGINT NOT NULL,
   name VARCHAR(50) NOT NULL,
   url VARCHAR(100) NOT NULL,
   rank INTEGER UNSIGNED NOT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE submissions_rankrewards
 CREATE TABLE submissions_projects
 (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  time INTEGER UNSIGNED NOT NULL,
+  time BIGINT NOT NULL,
   project_id INTEGER,
   url VARCHAR(100),
   description VARCHAR(200),
@@ -130,7 +130,7 @@ CREATE TABLE submissions_projects
 CREATE TABLE submissions_problems
 (
   id INTEGER NOT NULL AUTO_INCREMENT,
-  time INTEGER UNSIGNED NOT NULL,
+  time BIGINT NOT NULL,
   url VARCHAR(100) NOT NULL,
   problem_id INTEGER,
   user_id INTEGER,
