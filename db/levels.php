@@ -2,54 +2,46 @@
 
 function getAllLevels() {
   $qstr = 'SELECT * FROM levels';
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function getLevelById($level_id) {
   $qstr = 'SELECT * FROM levels WHERE id = ' . $level_id;
-  return executeDB($qstr);
+  return executeResultDB($qstr);
 }
 
 function addLevel($name, $points, $description) {
-  if (!connectedDB()) return false;
-  global $con;
-  $name = mysqli_real_escape_string($con, $name);
-  $points = mysqli_real_escape_string($con, $points);
-  $description = mysqli_real_escape_string($con, $description);
+  try {
+    escapeStringDB($name);
+    escapeStringDB($points);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $qstr = "INSERT INTO levels (name, points, description) VALUES
     ('$name', '$points', '$description')";
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 function updateLevel($level_id, $name, $points, $description) {
-  if (!connectedDB()) return false;
-  global $con;
-  $name = mysqli_real_escape_string($con, $name);
-  $points = mysqli_real_escape_string($con, $points);
-  $description = mysqli_real_escape_string($con, $description);
+  try {
+    escapeStringDB($name);
+    escapeStringDB($points);
+    escapeStringDB($description);
+  } catch (dbException $e) {
+    return $e->getCode();
+  }
   $qstr = "UPDATE levels SET
     name = '$name',
     points = '$points',
     description = '$description'
     WHERE id = " . $level_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 function deleteLevel($level_id) {
   $qstr = 'DELETE FROM levels WHERE id = ' . $level_id;
-  $result = executeDB($qstr);
-  if (is_null($result)) {
-    return false;
-  }
-  return true;
+  return executeDB($qstr);
 }
 
 ?>
